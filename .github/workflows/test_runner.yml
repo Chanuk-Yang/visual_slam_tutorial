@@ -13,5 +13,5 @@ jobs:
       - name: build cmake
         run: cd visual_slam_tutorial && mkdir build && cd build && cmake .. && make -j8
       - name: run test build
-        run: cd .. && ./bin/run_kitti_stereo
+        run: ./bin/run_kitti_stereo
         
