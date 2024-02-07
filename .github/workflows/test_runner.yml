@@ -12,4 +12,6 @@ jobs:
         run: git clone https://github.com/Chanuk-Yang/visual_slam_tutorial.git
       - name: build cmake
         run: cd visual_slam_tutorial && mkdir build && cd build && cmake .. && make -j8
+      - name: run test build
+        run: cd .. && ./bin/run_kitti_stereo
         
