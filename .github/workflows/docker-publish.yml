@@ -20,7 +20,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: chanuk/visual_slam_tutorial
-
+  VERSION: latest
 
 jobs:
   build:
@@ -78,7 +78,7 @@ jobs:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: latest
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
