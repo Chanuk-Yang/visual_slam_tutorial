@@ -7,6 +7,11 @@ Stereo visual slam 구현을 위한 tutorial 모드.
 2. Frontend 개발: frontend, frame(원래 코드 그대로임), feature, mappoint
 3. Backend 개발: backend, map
 
+## 개발 환경
+- Ubuntu 20.04
+- ROS Noetic
+- OpenCV 4 이상
+
 ## Dependency
 - Sophus
 - Eigen3
