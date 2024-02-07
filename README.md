@@ -26,7 +26,8 @@ Stereo visual slam 구현을 위한 tutorial 모드.
    cmake ..
    make -j8
    ```
-4. 실행
+4. config 파일에서 directory 수정
+5. 실행
    ```
    ./bin/run_kitti_stereo
    ```
