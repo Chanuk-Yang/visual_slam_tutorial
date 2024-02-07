@@ -1,5 +1,6 @@
 #include "myslam/dataset.h"
 #include "myslam/frame.h"
+#include "myslam/common_include.h"
 
 #include <boost/format.hpp>
 #include <fstream>
@@ -11,6 +12,9 @@ namespace myslam {
 Dataset::Dataset(const std::string& dataset_path)
     : dataset_path_(dataset_path) {}
 
+Dataset::Dataset(const std::string& dataset_path, const std::string& gt_path)
+    : dataset_path_(dataset_path), gt_path_(gt_path) {}
+
 bool Dataset::Init() {
     // read camera intrinsics and extrinsics
     ifstream fin(dataset_path_ + "/calib.txt");
@@ -18,7 +22,9 @@ bool Dataset::Init() {
         LOG(ERROR) << "cannot find " << dataset_path_ << "/calib.txt!";
         return false;
     }
-
+    if (gt_path_ != "none") {
+        file.open (gt_path_, std::ifstream::in);
+    }
     for (int i = 0; i < 4; ++i) {
         char camera_name[3];
         for (int k = 0; k < 3; ++k) {
@@ -67,10 +73,31 @@ Frame::Ptr Dataset::NextFrame() {
                cv::INTER_NEAREST);
     cv::resize(image_right, image_right_resized, cv::Size(), 0.5, 0.5,
                cv::INTER_NEAREST);
+    
 
     auto new_frame = Frame::CreateFrame();
     new_frame->left_img_ = image_left_resized;
     new_frame->right_img_ = image_right_resized;
+    if (gt_path_ != "none") {
+        double gt_data[12];
+        for (int k = 0; k < 12; ++k) {
+            file >> gt_data[k];
+        }
+        Mat33 R;
+
+        R << gt_data[0], gt_data[1], gt_data[2],
+            gt_data[4], gt_data[5], gt_data[6], 
+            gt_data[8], gt_data[9], gt_data[10];
+
+        R.block<3, 3>(0, 0) = Eigen::Quaterniond(R.block<3, 3>(0, 0)).normalized().toRotationMatrix();
+
+        Vec3 t;
+        t << gt_data[3], gt_data[7], gt_data[11];
+        SE3 true_path(R, t);
+        new_frame->SetTruePose(true_path);
+        
+        
+    }
     current_image_index_++;
     return new_frame;
 }

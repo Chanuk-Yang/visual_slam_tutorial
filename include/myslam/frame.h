@@ -26,6 +26,7 @@ struct Frame {
     bool is_keyframe_ = false;       // 是否为关键帧
     double time_stamp_;              // 时间戳，暂不使用
     SE3 pose_;                       // Tcw 形式Pose
+    SE3 true_pose;                       
     std::mutex pose_mutex_;          // Pose数据锁
     cv::Mat left_img_, right_img_;   // stereo images
 
@@ -49,6 +50,16 @@ struct Frame {
     void SetPose(const SE3 &pose) {
         std::unique_lock<std::mutex> lck(pose_mutex_);
         pose_ = pose;
+    }
+
+    SE3 TruePose() {
+        std::unique_lock<std::mutex> lck(pose_mutex_);
+        return true_pose;
+    }
+
+    void SetTruePose(const SE3 &pose) {
+        std::unique_lock<std::mutex> lck(pose_mutex_);
+        true_pose = pose;
     }
 
     /// 设置关键帧并分配并键帧id

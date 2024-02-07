@@ -3,7 +3,7 @@
 #include "myslam/camera.h"
 #include "myslam/common_include.h"
 #include "myslam/frame.h"
-
+#include <fstream>
 namespace myslam {
 
 /**
@@ -16,6 +16,7 @@ class Dataset {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     typedef std::shared_ptr<Dataset> Ptr;
     Dataset(const std::string& dataset_path);
+    Dataset(const std::string& dataset_path, const std::string& gt_path);
 
     /// 初始化，返回是否成功
     bool Init();
@@ -30,8 +31,9 @@ class Dataset {
 
    private:
     std::string dataset_path_;
+    std::string gt_path_ = "none";
     int current_image_index_ = 0;
-
+    std::ifstream file;
     std::vector<Camera::Ptr> cameras_;
 };
 }  // namespace myslam

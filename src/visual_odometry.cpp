@@ -17,7 +17,7 @@ bool VisualOdometry::Init() {
     }
 
     dataset_ =
-        Dataset::Ptr(new Dataset(Config::Get<std::string>("dataset_dir")));
+        Dataset::Ptr(new Dataset(Config::Get<std::string>("dataset_dir"), Config::Get<std::string>("gt_files")));
     CHECK_EQ(dataset_->Init(), true);
 
     // create components and links
