@@ -45,7 +45,7 @@ docker run -td --privileged --net=host --ipc=host\
      -e "XAUTHORITY=$XAUTH"\
      -e ROS_IP=127.0.0.1\
      --cap-add=SYS_PTRACE\
-     -v `pwd`/Datasets:/Datasets\
+     -v `pwd`/dataset:/dataset\
      -v /etc/group:/etc/group:ro\
      -v `pwd`/visual_slam_tutorial:/visual_slam  --workdir /visual_slam\
      chanuk/visual_slam_tutorial bash
