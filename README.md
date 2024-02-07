@@ -42,6 +42,7 @@ docker run -td --privileged --net=host --ipc=host\
      -v `pwd`/visual_slam_tutorial:/visual_slam  --workdir /visual_slam\
      chanuk/visual_slam_tutorial bash
 docker exec -it visual_slam bash
+# docker 환경에서 실행
 mkdir build && cd build
 cmake ..
 make -j8
