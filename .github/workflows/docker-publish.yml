@@ -19,7 +19,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ chanuk/visual_slam_tutorial }}
+  IMAGE_NAME: ${ chanuk/visual_slam_tutorial }
 
 
 jobs:
