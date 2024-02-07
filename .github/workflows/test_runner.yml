@@ -8,7 +8,8 @@ jobs:
     runs-on: [self-hosted]
     steps:
       - uses: actions/checkout@v3.6.0
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v2
-      - name: Display Terraform Version
-        run: terraform --version
+      - name: Download github
+        run: git clone https://github.com/Chanuk-Yang/visual_slam_tutorial.git
+      - name: build cmake
+        run: cd visual_slam_tutorial && mkdir build && cd build && cmake .. && make -j8
+        
