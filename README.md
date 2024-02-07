@@ -1,4 +1,11 @@
 # visual_slam_tutorial
+## 코드의 목적
+Stereo visual slam 구현을 위한 tutorial 모드.
+
+## 코드 수정 범위
+1. ROS 변경: dataset, visual_odometry, viewer(주석처리만 진행)
+2. Frontend 개발: frontend, frame(원래 코드 그대로임), feature, mappoint
+3. Backend 개발: backend, map
 
 ## Dependency
 - Sophus
